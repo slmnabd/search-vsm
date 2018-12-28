@@ -1,0 +1,15 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">PERPUSTAKAAN MAKMUR BAHAGIA</a>
+    </div>
+    <ul class="nav navbar-nav">
+
+    <%= form_tag root_path, method: :get, class: 'navbar-form navbar-left' do %>
+      <div class="form-group">
+        <%= text_field_tag :search, nil, class: 'form-control' %>
+      </div>
+      <%= submit_tag "Cari", class: 'btn btn-default' %>
+    <% end %>
+  </div>
+</nav>

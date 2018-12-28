@@ -1,0 +1,39 @@
+<div class="" style="width:80%;margin: 0 auto;">
+  <h2>Pustaka Lagu</h2>
+
+  <div data-turbolinks="false">
+  <%= link_to 'tambah file', new_book_path, class: 'btn btn-primary' %>
+  <br><br>
+  </div>
+  
+
+  <% if @book.any? %>
+  <table class="table table-bordered table-hover" style="">
+    <thead>
+      <tr class="text-center">
+        <td>No</td>
+        <td>Title</td>
+        <td>author</td>
+        <td>category</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% no = 0 %>
+      <% @book.each do |s| %>
+      <tr>
+        <td class="text-center"><%= no += 1 %></td>
+        <td><%= s.title %></td>
+        <td><%= s.author %></td>
+        <td><%= s.category %></td>
+        <td class="text-center"><%= link_to 'show', book_path(s) %> | <%= link_to 'edit', edit_book_path(s) %> | <%= link_to 'delete', book_path(s), method: :delete, data: {confirm: "are you sure ?"} %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  <br><br>
+  <%= "data kosong, silahkan input data terlebih dahulu" %>
+  <% end %>
+</div>
