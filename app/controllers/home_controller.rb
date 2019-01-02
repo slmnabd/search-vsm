@@ -4,6 +4,7 @@ class HomeController < ApplicationController
   def index
     @book = Book.all
     if params[:search]
+      @books = Book.where('title like ?', "%#{params[:search]}%")
       @query_input = text_preprocessing(params[:search])
       document(@query_input)
       get_term(@query_input)
@@ -162,14 +163,19 @@ class HomeController < ApplicationController
       hasil = akar_d * x
       @q_x_dokumen.push(hasil)
     end
-    @cos_sim = @total_wd.zip(@q_x_dokumen).map{|x, y| x / y}
+    @cos_sim = @total_wd.zip(@q_x_dokumen).map{|x, y| (x / y) }
   end
   
   def result()
     @result = Hash.new
     @book.each do |book|
       x = @cos_sim.shift
-      @result[book.id] = x
+      if x > 0
+        # @result[book.id] = x
+        @result[x] = book
+      end
+      @ikihasile = @result.sort_by { |_key , value| -_key}.to_h
+      
     end
     puts @result
   end

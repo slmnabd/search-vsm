@@ -1,0 +1,109 @@
+<div class="container">
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Perhitungan</button>
+  <div id="demo" class="collapse">
+    <div class="panel-group" id="accordion">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+            Query input</a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+          <div class="panel-body"><%= @query_input %></div>
+        </div>
+      </div>
+      
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+            Term</a>
+          </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse in">
+          <div class="panel-body"><%= @term %></div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2koma5">
+            Pembobotan</a>
+          </h4>
+        </div>
+        <div id="collapse2koma5" class="panel-collapse collapse in">
+          <div class="panel-body"><%= @data_pembobobotan %></div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+            Wd q * Wd i</a>
+          </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse in">
+          <div class="panel-body"><%= @data_pecahan_wd %></div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+            Sum (Wd q * Wd i)</a>
+          </h4>
+        </div>
+        <div id="collapse4" class="panel-collapse collapse in">
+          <div class="panel-body"><%= @total_wd %></div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+            Panjang vektor</a>
+          </h4>
+        </div>
+        <div id="collapse5" class="panel-collapse collapse in">
+          <div class="panel-body"><%= @data_panjang_vektor %></div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+            Sum (panjang vektor)</a>
+          </h4>
+        </div>
+        <div id="collapse6" class="panel-collapse collapse in">
+          <div class="panel-body"><%= @total_wd %></div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">
+            akar (Sum panjang vektor)</a>
+          </h4>
+        </div>
+        <div id="collapse7" class="panel-collapse collapse in">
+          <div class="panel-body"><%= @sum_vektor %></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<h1><%= @ikihasile %></h1>
+  
+
+

@@ -13,25 +13,79 @@
     <% end %>
   </div>
 </nav>
-<ol>
-    <li><h1><%= @dokumen %></h1></li>
-    <li><h1><%= @query_input %></h1></li>
-    <li><h1><%= @term %></h1></li>
-    <li><h1><%= @idf %></h1></li>
-    <li><h1><%= @tf %></h1></li>
-    <li><h1><%= @data_tf %></h1></li>
-    <li><h1><%= @data_perkata %></h1></li>
-    <li><h1><%= @data_pembobobotan %></h1></li>
-    <li><h1><%= @data_wd %></h1></li>
-    <li><h1><%= @data_pecahan_wd %></h1></li>
-    <li><h1><%= @total_wd %></h1></li>
-    <li><h1><%= @panjang_vektor %></h1></li>
-    <li><h1><%= @data_panjang_vektor %></h1></li>
-    <li><h1><%= @sum_vektor %></h1></li>
-    <li><h1><%= @sqrt_sum_vektor %></h1></li>
-    <li><h1><%= @cos_sim %></h1></li>
-    <li><h1><%= @result %></h1></li>
-  </ol>
+
+<div class="" style="width:80%;margin: 0 auto;">
+  
+  <% if @books.any? %>
+  
+  <table class="table table-bordered table-hover" style="">
+    <thead>
+      <tr class="text-center">
+        <td>No</td>
+        <td>Title</td>
+        <td>author</td>
+        <td>category</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% no = 0 %>
+      <% @books.each do |s| %>
+      <tr>
+        <td class="text-center"><%= no += 1 %></td>
+        <td><%= s.title %></td>
+        <td><%= s.author %></td>
+        <td><%= s.category %></td>
+        <td class="text-center"><%= link_to 'show', book_path(s) %> | <%= link_to 'edit', edit_book_path(s) %> | <%= link_to 'delete', book_path(s), method: :delete, data: {confirm: "are you sure ?"} %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  <br><br>
+  <%= "data kosong, silahkan input data terlebih dahulu" %>
+  <% end %>
+
+
+
+
+
+
+
+
+
+  <% if @ikihasile.any? %>
+  <table class="table table-bordered table-hover" style="">
+    <thead>
+      <tr class="text-center">
+        <td>No</td>
+        <td>Title</td>
+        <td>author</td>
+        <td>category</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% no = 0 %>
+      <% @ikihasile.each do |_key , value| %>
+      <tr>
+        <td class="text-center"><%= no += 1 %></td>
+        <td><%= value.title %></td>
+        <td><%= value.author %></td>
+        <td><%= value.category %></td>
+        <td class="text-center"><%= link_to 'show', book_path(value) %> | <%= link_to 'edit', edit_book_path(value) %> | <%= link_to 'delete', book_path(value), method: :delete, data: {confirm: "are you sure ?"} %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+  <br><br>
+  <%= "data kosong, silahkan input data terlebih dahulu" %>
+  <% end %>
+</div>
+
+<%= render "perhitungan" %>
 
 
 
