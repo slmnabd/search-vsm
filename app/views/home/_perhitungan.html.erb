@@ -1,5 +1,5 @@
 <div class="container">
-  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Perhitungan</button>
+  <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#demo">Perhitungan</button>
   <div id="demo" class="collapse">
     <div class="panel-group" id="accordion">
 
@@ -99,11 +99,21 @@
         </div>
       </div>
 
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">
+            Hasil perhitungan</a>
+          </h4>
+        </div>
+        <div id="collapse8" class="panel-collapse collapse in">
+          <div class="panel-body"><%= @ikihasile %></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
-
-<h1><%= @ikihasile %></h1>
   
 
 

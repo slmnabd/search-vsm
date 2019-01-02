@@ -3,6 +3,8 @@ require 'sastrawi'
 class HomeController < ApplicationController
   def index
     @book = Book.all
+    @books = Book.all
+    @hasil_search = params[:search]
     if params[:search]
       @books = Book.where('title like ?', "%#{params[:search]}%")
       @query_input = text_preprocessing(params[:search])
@@ -21,6 +23,7 @@ class HomeController < ApplicationController
       cosine_similarity()
       result()
     end
+
   end
   
   def text_preprocessing(text)
