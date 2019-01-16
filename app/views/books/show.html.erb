@@ -1,4 +1,6 @@
-<p>
-  <%= @book.synopsis %>
-</p>
-<%= link_to 'back', books_path %>
+<div class="container" style="margin-top:50px">
+  <h3><%= @book.title %></h3>
+    <%= "penulis : #{@book.author}" %><br>
+    <%= @book.synopsis %><br><br>
+    <%= link_to 'back', root_path, class: 'btn btn-info' %>
+</div>

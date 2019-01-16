@@ -1,4 +1,5 @@
 <div class="container">
+</div>
   <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#demo">Perhitungan</button>
   <div id="demo" class="collapse">
     <div class="panel-group" id="accordion">
@@ -7,11 +8,74 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-            Query input</a>
+            Query input text preprocessing</a>
           </h4>
         </div>
         <div id="collapse1" class="panel-collapse collapse in">
-          <div class="panel-body"><%= @query_input %></div>
+          <div class="panel-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>input search</td>
+                  <td><%= @hasil_search %></td>
+                </tr>
+                <tr>
+                  <td>menghapus tanda baca</td>
+                  <td><%= delete_punctuation(@hasil_search) %></td>
+                  <% hasil_delete_punctuation = delete_punctuation(@hasil_search) %>
+                </tr>
+                <tr>
+                  <td>steamming</td>
+                  <td><%= steamming(hasil_delete_punctuation)%></td>
+                  <% hasil_steamming = steamming(hasil_delete_punctuation) %>
+                </tr>
+                <tr>
+                  <td>stopword removal</td>
+                  <td><%= stopword_removal(hasil_steamming) %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse11">
+            Dokumen text preprocessing</a>
+          </h4>
+        </div>
+        <div id="collapse11" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <% no_dokumen = 0 %>
+            <% @book.each do |doc| %>
+              <h3><%= "dokumen ke-#{no_dokumen = no_dokumen + 1}" %></h3>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>sinopsis</td>
+                    <td><%= doc.synopsis %></td>
+                  </tr>
+                  <tr>
+                    <td>menghapus tanda baca</td>
+                    <td><%= delete_punctuation(doc.synopsis) %></td>
+                    <% hasil_delete_punctuation = delete_punctuation(doc.synopsis) %>
+                  </tr>
+                  <tr>
+                    <td>steamming</td>
+                    <td><%= steamming(hasil_delete_punctuation) %></td>
+                    <% hasil_steamming = steamming(hasil_delete_punctuation) %>
+                  </tr>
+                  <tr>
+                    <td>stopword removal</td>
+                    <td><%= stopword_removal(hasil_steamming) %></td>
+
+                  </tr>
+                </tbody>
+              </table>
+            <% end %>
+          </div>
         </div>
       </div>
       
@@ -23,7 +87,78 @@
           </h4>
         </div>
         <div id="collapse2" class="panel-collapse collapse in">
-          <div class="panel-body"><%= @term %></div>
+          <div class="panel-body">
+            <%= @term %>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2koma55">
+            tf</a>
+          </h4>
+        </div>
+        <div id="collapse2koma55" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>term</th>
+                  <th>Q</th>
+                  <% no_doc = 0 %>
+                  <% @book.each do |b| %>
+                    <th><%= "D#{no_doc = no_doc + 1}" %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% no_idf = 0 %>
+                <% @term.each do |t| %>
+                  <tr>
+                    <td><%= t %></td>
+                    <% pemecahan_tf = @tabel_data_tf[no_idf] %>
+                    <% pemecahan_tf.each do |pt| %>
+                      <td><%= pt %></td>
+                    <% end %>
+                  </tr>
+                  <% no_idf = no_idf + 1 %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse22">
+            Idf</a>
+          </h4>
+        </div>
+        <div id="collapse22" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>term</th>
+                  <th>idf</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% no_idf = 0 %>
+                <% @term.each do |t| %>
+                  <tr>
+                    <td><%= t %></td>
+                    <td><%= @idf[no_idf] %></td>
+                  </tr>
+                  <% no_idf = no_idf + 1 %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -31,11 +166,43 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse2koma5">
-            Pembobotan</a>
+            Wdt = tf.idf</a>
           </h4>
         </div>
         <div id="collapse2koma5" class="panel-collapse collapse in">
-          <div class="panel-body"><%= @data_pembobobotan %></div>
+          <div class="panel-body">
+            <% @tabel_data_wdt = [] %>
+            <% @term.each do |t| %>
+              <% flag = @tabel_data_perkata.shift(@n) %>
+              <% @tabel_data_wdt.push(flag) %>
+            <% end %>
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>term</th>
+                  <th>Q</th>
+                  <% no_doc = 0 %>
+                  <% @book.each do |b| %>
+                    <th><%= "D#{no_doc = no_doc + 1}" %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% no_idf = 0 %>
+                <% @term.each do |t| %>
+                  <tr>
+                    <td><%= t %></td>
+                    <% pemecahan_wdt = @tabel_data_wdt[no_idf] %>
+                    <% pemecahan_wdt.each do |pt| %>
+                      <td><%= pt %></td>
+                    <% end %>
+                  </tr>
+                  <% no_idf = no_idf + 1 %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -43,11 +210,36 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-            Wd q * Wd i</a>
+            Wd Q * Wd i</a>
           </h4>
         </div>
         <div id="collapse3" class="panel-collapse collapse in">
-          <div class="panel-body"><%= @data_pecahan_wd %></div>
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>term</th>
+                  <% no_doc = 0 %>
+                  <% @book.each do |b| %>
+                    <th><%= "D#{no_doc = no_doc + 1}" %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% no_n = 0 %>
+                <% @term.each do |t| %>
+                  <tr>
+                    <td><%= t %></td>
+                    <% pemecahan_wdq_wdi = @data_pecahan_wd[no_n] %>
+                    <% pemecahan_wdq_wdi.each do |pt| %>
+                      <td><%= pt %></td>
+                    <% end %>
+                  </tr>
+                  <% no_n = no_n + 1 %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -55,11 +247,29 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-            Sum (Wd q * Wd i)</a>
+            Sum (Wd Q * Wd i)</a>
           </h4>
         </div>
         <div id="collapse4" class="panel-collapse collapse in">
-          <div class="panel-body"><%= @total_wd %></div>
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <% no_doc = 0 %>
+                  <% @book.each do |b| %>
+                    <th><%= "D#{no_doc = no_doc + 1}" %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <% @total_wd.each do |t| %>
+                    <td><%= t %></td>
+                  <% end %>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -71,7 +281,33 @@
           </h4>
         </div>
         <div id="collapse5" class="panel-collapse collapse in">
-          <div class="panel-body"><%= @data_panjang_vektor %></div>
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>term</th>
+                  <th>Q</th>
+                  <% no_doc = 0 %>
+                  <% @book.each do |b| %>
+                    <th><%= "D#{no_doc = no_doc + 1}" %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% no_n = 0 %>
+                <% @term.each do |t| %>
+                  <tr>
+                    <td><%= t %></td>
+                    <% pemecahan_vektor = @data_panjang_vektor[no_n] %>
+                    <% pemecahan_vektor.each do |pt| %>
+                      <td><%= pt %></td>
+                    <% end %>
+                  </tr>
+                  <% no_n = no_n + 1 %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -83,7 +319,26 @@
           </h4>
         </div>
         <div id="collapse6" class="panel-collapse collapse in">
-          <div class="panel-body"><%= @total_wd %></div>
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Q</th>
+                  <% no_doc = 0 %>
+                  <% @book.each do |b| %>
+                    <th><%= "D#{no_doc = no_doc + 1}" %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <% @sum_vektor.each do |t| %>
+                    <td><%= t %></td>
+                  <% end %>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -95,7 +350,26 @@
           </h4>
         </div>
         <div id="collapse7" class="panel-collapse collapse in">
-          <div class="panel-body"><%= @sum_vektor %></div>
+          <div class="panel-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Q</th>
+                  <% no_doc = 0 %>
+                  <% @book.each do |b| %>
+                    <th><%= "D#{no_doc = no_doc + 1}" %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <% @tabel_sqrt_sum_vektor.each do |t| %>
+                    <td><%= t %></td>
+                  <% end %>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -107,13 +381,23 @@
           </h4>
         </div>
         <div id="collapse8" class="panel-collapse collapse in">
-          <div class="panel-body"><%= @ikihasile %></div>
+          <div class="panel-body">
+          <table class="table">
+              <% @ikihasile.each do |_key, value| %>
+              <tbody>
+                <tr>
+                    <td><%= value.title %></td>
+                    <td><%= _key %></td>
+                </tr>
+                  <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
-</div>
   
 
 

@@ -1,5 +1,5 @@
-<div class="" style="width:80%;margin: 0 auto;">
-  <h2>Data Buku</h2>
+<div class="" style="width:80%;margin: 0 auto;margin-top:50px">
+  <h2>Data Buku Perpustakaan Makmur Bahagia</h2>
 
   <div data-turbolinks="false">
   <%= link_to 'tambah file', new_book_path, class: 'btn btn-primary' %>
@@ -15,6 +15,7 @@
         <td>Title</td>
         <td>author</td>
         <td>category</td>
+        <td>synopsis</td>
         <td>Action</td>
       </tr>
     </thead>
@@ -25,9 +26,10 @@
       <tr>
         <td class="text-center"><%= no += 1 %></td>
         <td><%= s.title %></td>
-        <td><%= s.author %></td>
+        <td><%= s.author.titleize %></td>
         <td><%= s.category %></td>
-        <td class="text-center"><%= link_to 'show', book_path(s) %> | <%= link_to 'edit', edit_book_path(s) %> | <%= link_to 'delete', book_path(s), method: :delete, data: {confirm: "are you sure ?"} %></td>
+        <td><%= truncate(s.synopsis, length: 150) %></td>
+        <td class="text-center"><%= link_to 'edit', edit_book_path(s) %> | <%= link_to 'delete', book_path(s), method: :delete, data: {confirm: "are you sure ?"} %></td>
       </tr>
       <% end %>
     </tbody>

@@ -1,49 +1,53 @@
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">PERPUSTAKAAN MAKMUR BAHAGIA</a>
+<div class="container" style="margin-top : 50px;">
+  <h1 class="text-center" style="margin-buttom : 10px;"><%= link_to "PERPUSTAKAAN MAKMUR BAHAGIA", root_path %></h1>
+  <%= form_tag root_path, method: :get, class: 'example lebar-form' do %>
+    <div class="form-group">
+      <%= text_field_tag :search, nil, class: 'form-control' %>
     </div>
-    <ul class="nav navbar-nav">
+    <%= submit_tag "Cari", class: 'btn btn-primary' %>
+  <% end %>
 
-    <%= form_tag root_path, method: :get, class: 'navbar-form navbar-left' do %>
-      <div class="form-group">
-        <%= text_field_tag :search, nil, class: 'form-control' %>
+  <div class="" style="padding-top: 50px">
+    <% if @books.any? %>
+      <% if @hasil_search == nil %>
+        <h2>data buku :</h2>  
+      <% else %>
+        <%# <h2>berdasarkan judul :</h2>   %>
+        <h3>Hasil pencarian untuk '<i><%= @hasil_search %></i>'</h3>
+      <% end %>
+      <% @books.each do |s| %>
+        <h3><%= link_to s.title, book_path(s) %></h3>
+        <%= "penulis : #{s.author.titleize}" %><br>
+        <%= truncate(s.synopsis, length: 100) %>
+        <hr style="border: 1px solid grey">
+      <% end %>
+    <% else %>
+      <div class="alert alert-info alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Tidak ada judul yang cocok</strong> 
       </div>
-      <%= submit_tag "Cari", class: 'btn btn-default' %>
+    <% end %>
+
+    <% if @hasil_search == nil %>
+    <% else %>
+      <% if @ikihasile.any? %>
+        <%# <h3>berdasarkan sinopsis :</h3> %>
+        <h3>Hasil pencarian untuk '<i><%= @hasil_search %></i>'</h3>
+        <% @ikihasile.each do |_key , value| %>
+          <h3><%= link_to value.title, book_path(value) %></h3>
+          <%= "penulis : #{value.author}" %><br>
+          <%= truncate(value.synopsis, length: 100) %>
+          <hr style="border: 1px solid grey">
+        <% end %>
+        <%# <%= render "perhitungan" %>  %>
+      <% else %>
+        <div class="alert alert-info alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Tidak ada sinopsis yang relevan</strong> 
+        </div>
+      <% end %>
     <% end %>
   </div>
-</nav>
-
-<div class="" style="width:80%;margin: 0 auto;">
-  
-  <% if @books.any? %>
-    <h2>berdasarkan judul :</h2>  
-    <% @books.each do |s| %>
-      <h3><%= link_to s.title, book_path(s) %><h3>
-      <h4><%= s.author %></h4>
-      <p><%= truncate(s.synopsis, length: 100) %></p>
-      <div style='clear: both'></div>
-    <% end %>
-  <% else %>
-  <%= "tidak ada judul yang relevan" %>
-  <% end %>
-
-  <% if @hasil_search == nil %>
-  <% else %>
-    <% if @ikihasile.any? %>
-      <h3>berdasarkan sinopsis :</h3>
-      <% @ikihasile.each do |_key , value| %>
-        <h3><%= link_to value.title, book_path(value) %><h3>
-        <h4><%= value.author %></h4>
-        <p><%= truncate(value.synopsis, length: 100) %></p>
-        <div style='clear: both'></div>
-      <% end %>
-      <%= render "perhitungan" %>
-    <% else %>
-    <%= "tidak ada sinopsis yang relevan" %>
-    <% end %>
-  <% end %>
-
 </div>
 
 
