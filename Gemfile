@@ -6,7 +6,7 @@ ruby '2.4.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2'
 # Use mysql as the database for Active Record
-gem 'mysql2', '>= 0.4.4', '< 0.6.0'
+gem 'mysql2', '>= 0.4.4', '< 0.6.0', group: :development
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -19,6 +19,7 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'sastrawi'
 gem 'will_paginate'
+gem 'pg', group: :production
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
